@@ -4,17 +4,11 @@ import io.github.dwarfy.models.Person
 import io.github.dwarfy.utils.IdGenerator
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/person")
+@CrossOrigin(origins = ["http://localhost:5173"])
 public class PersonController {
     private val dataMap = hashMapOf<Int, Person>()
 
@@ -44,9 +38,9 @@ public class PersonController {
         return ResponseEntity(person, HttpStatus.CREATED)
     }
 
-    @PatchMapping
-    public fun update(@RequestBody data: Person): ResponseEntity<Person> {
-        val person = dataMap[data.id] ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+    @PatchMapping("{id}")
+    public fun update(@PathVariable id: Int,  @RequestBody data: Person): ResponseEntity<Person> {
+        val person = dataMap[id] ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         person.age = data.age
         person.name = data.name
 
