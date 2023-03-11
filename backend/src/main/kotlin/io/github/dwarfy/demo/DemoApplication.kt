@@ -1,4 +1,4 @@
-package com.example.demo
+package io.github.dwarfy.demo
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

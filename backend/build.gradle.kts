@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
 	id("org.springframework.boot") version "3.0.4"
@@ -8,8 +7,8 @@ plugins {
 	kotlin("plugin.spring") version "1.7.22"
 }
 
-group = "com.example"
-version = "0.0.3-SNAPSHOT"
+group = "io.github.dwarfy"
+version = "0.0.5"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -36,7 +35,7 @@ tasks.withType<Test> {
 
 tasks.jar {
 	manifest {
-		attributes["Main-Class"] = "com.example.demo.DemoApplicationKt"
+		attributes["Main-Class"] = "io.github.dwarfy.demo.DemoApplicationKt"
 	}
 	configurations["compileClasspath"].forEach { file: File ->
 		from(zipTree(file.absoluteFile))
