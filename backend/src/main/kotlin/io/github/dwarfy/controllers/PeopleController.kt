@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/people")
 @CrossOrigin(origins = ["http://localhost:5173"])
 class PeopleController(private val peopleRepository: PeopleRepository) {
-    init {
-        peopleRepository.create("Joacim", 34)
-        peopleRepository.create("Christoffer", 28)
-    }
-
     @GetMapping
     fun getList(): ResponseEntity<Collection<Person>> {
         return ResponseEntity(peopleRepository.getListOfPeople(), HttpStatus.OK)
