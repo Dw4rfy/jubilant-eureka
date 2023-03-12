@@ -1,11 +1,11 @@
-package io.github.dwarfy.demo
+package io.github.dwarfy
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class DemoApplication
+class RestApplication
 
 fun main(args: Array<String>) {
-	runApplication<DemoApplication>(*args)
+	runApplication<RestApplication>(*args)
 }

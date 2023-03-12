@@ -28,9 +28,14 @@ const inputAge = () => {
 const name = ref(props.name);
 const age = ref(inputAge());
 
-const emit = defineEmits(["onSave", "onDelete", "onUpdate"]);
+const emit = defineEmits(["onSave", "onDelete", "onUpdate", "onError"]);
 
 const onSave = () => {
+    if(!name.value || !age.value){
+        emit("onError", "Please enter the correct input data");
+        return;
+    }
+        
     if(!props.id)
         emit("onSave", { name: name.value, age: Number.parseInt(age.value) });
     else

@@ -2,8 +2,13 @@ import type { Person } from "@/types/person";
 import axios from "axios";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+// @ts-ignore
+import { createToaster } from "@meforma/vue-toaster";
 
 export const usePersonStore = defineStore("person", () => {
+    const toaster = createToaster();
+    const baseUrl: string = "http://localhost:8080/api/people";
+
     // STATE
     const personList = ref<Person[]>([]);
 
@@ -12,15 +17,16 @@ export const usePersonStore = defineStore("person", () => {
 
     // ACTIONS
     const fetchAll = async () => {
-        const request = await axios.get("http://localhost:8080/api/person");
+        const request = await axios.get(baseUrl);
         personList.value = request.data;
     }
 
     const createPerson = async (person: Person) => {
-        const request = await axios.post("http://localhost:8080/api/person", person)
+        const request = await axios.post(baseUrl, person)
         const data = request.data;
         personList.value.pop();
         personList.value.push(data);
+        toaster.success(`Person with id ${data.id} added`, {position: "bottom", duration: 2000});
     }
 
     const createNewPerson = () => {
@@ -31,17 +37,19 @@ export const usePersonStore = defineStore("person", () => {
     }
 
     const updatePerson = async (personUpdated: Person) => {
-        const request = await axios.patch(`http://localhost:8080/api/person/${personUpdated.id}`, personUpdated)
+        const request = await axios.patch(`${baseUrl}/${personUpdated.id}`, personUpdated)
         const data: Person = request.data;
         const index = personList.value.findIndex((x)=> x.id == data.id);
         personList.value[index] = data;
+        toaster.success(`Person with id ${data.id} updated`, {position: "bottom", duration: 2000});
     }
 
     const deletePerson = async (id: number) => {
-        await axios.delete(`http://localhost:8080/api/person/${id}`);
+        await axios.delete(`${baseUrl}/${id}`);
         const index = personList.value.findIndex((x)=> x.id == id);
-        console.log(index);
-        console.log(personList.value.splice(index,1));
+        index;
+        personList.value.splice(index,1);
+        toaster.success(`Person with id ${id} deleted`, {position: "bottom", duration: 2000});
     }
 
     return {

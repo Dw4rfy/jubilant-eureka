@@ -1,10 +1,10 @@
-package io.github.dwarfy.demo
+package io.github.dwarfy.controllers
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class DemoApplicationTests {
+class RestApplicationTests {
 
 	@Test
 	fun contextLoads() {
