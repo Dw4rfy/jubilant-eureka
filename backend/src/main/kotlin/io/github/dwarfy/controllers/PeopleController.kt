@@ -1,6 +1,7 @@
 package io.github.dwarfy.controllers
 
 import io.github.dwarfy.models.Person
+import io.github.dwarfy.models.PersonRequest
 import io.github.dwarfy.repositories.PeopleRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,18 +16,13 @@ public class PeopleController(val peopleRepository: PeopleRepository) {
         peopleRepository.create("Christoffer", 28)
     }
 
-    @GetMapping("/hello")
-    public fun index(): String {
-        return "Hello World!";
-    }
-
     @GetMapping
     public fun getList(): ResponseEntity<Collection<Person>> {
         return ResponseEntity(peopleRepository.getListOfPeople(), HttpStatus.OK)
     }
 
     @PostMapping
-    public fun create(@RequestBody input: Person): ResponseEntity<Person> {
+    public fun create(@RequestBody input: PersonRequest): ResponseEntity<Person> {
         if (input.name.isNullOrEmpty() || input.age <= 0) {
             return ResponseEntity(HttpStatus.BAD_REQUEST)
         }
@@ -35,8 +31,8 @@ public class PeopleController(val peopleRepository: PeopleRepository) {
         return ResponseEntity(person, HttpStatus.CREATED)
     }
 
-    @PatchMapping("{id}")
-    public fun update(@PathVariable id: Int, @RequestBody data: Person): ResponseEntity<Person> {
+    @PutMapping("{id}")
+    public fun update(@PathVariable id: Int, @RequestBody data: PersonRequest): ResponseEntity<Person> {
         var person = peopleRepository.update(id, data)
             ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         return ResponseEntity(person, HttpStatus.OK)

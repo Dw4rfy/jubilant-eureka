@@ -37,7 +37,7 @@ export const usePersonStore = defineStore("person", () => {
     }
 
     const updatePerson = async (personUpdated: Person) => {
-        const request = await axios.patch(`${baseUrl}/${personUpdated.id}`, personUpdated)
+        const request = await axios.put(`${baseUrl}/${personUpdated.id}`, personUpdated)
         const data: Person = request.data;
         const index = personList.value.findIndex((x)=> x.id == data.id);
         personList.value[index] = data;

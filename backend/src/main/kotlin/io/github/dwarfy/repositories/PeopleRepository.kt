@@ -1,6 +1,7 @@
 package io.github.dwarfy.repositories
 
 import io.github.dwarfy.models.Person
+import io.github.dwarfy.models.PersonRequest
 import org.springframework.stereotype.Component
 
 @Component
@@ -21,7 +22,7 @@ class PeopleRepository {
         return person
     }
 
-    fun update(id: Int, data: Person): Person? {
+    fun update(id: Int, data: PersonRequest): Person? {
         val person = _dataMap[id] ?: return null
         person.age = data.age
         person.name = data.name
