@@ -32,7 +32,7 @@ const onAdd = () => {
 }
 
 const onReload = () => {
-  personStore.fetchAll();
+  personStore.reloadList();
 }
 
 const createPerson = (person: Person) => {

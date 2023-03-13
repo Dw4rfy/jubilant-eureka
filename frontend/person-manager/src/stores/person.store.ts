@@ -21,6 +21,11 @@ export const usePersonStore = defineStore("person", () => {
         personList.value = request.data;
     }
 
+    const reloadList = async () => {
+        personList.value = [];
+        await fetchAll();
+    }
+
     const createPerson = async (person: Person) => {
         const request = await axios.post(baseUrl, person)
         const data = request.data;
@@ -55,6 +60,7 @@ export const usePersonStore = defineStore("person", () => {
     return {
         getAll,
         fetchAll,
+        reloadList,
         createPerson,
         createNewPerson,
         updatePerson,
